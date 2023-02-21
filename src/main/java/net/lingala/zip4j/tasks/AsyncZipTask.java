@@ -24,11 +24,10 @@ public abstract class AsyncZipTask<T> {
     }
 
     initProgressMonitor();
+    long totalWorkToBeDone = calculateTotalWork(taskParameters);
+    progressMonitor.setTotalWork(totalWorkToBeDone);
 
     if (runInThread) {
-      long totalWorkToBeDone = calculateTotalWork(taskParameters);
-      progressMonitor.setTotalWork(totalWorkToBeDone);
-
       executorService.execute(new Runnable() {
         @Override
         public void run() {
